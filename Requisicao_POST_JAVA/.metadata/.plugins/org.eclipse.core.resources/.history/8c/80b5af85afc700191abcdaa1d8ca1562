@@ -1,0 +1,39 @@
+package SHA1;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
+public class RequisicaoPOST {
+	
+	public static String post(String json) throws IOException {
+
+		URL url = new URL("hhttps://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=6cd0100af830f8244ed55302a1950ab14354e5af");
+
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+		connection.setRequestMethod("POST");
+
+		connection.setRequestProperty("Content-type", "application/json"); connection.setRequestProperty("Accept", "application/json");
+
+		connection.setDoOutput(true);
+
+		PrintStream printStream = new PrintStream(connection.getOutputStream()); printStream.println(json);
+
+		connection.connect();
+
+		String jsonDeResposta = new Scanner(connection.getInputStream()).next();
+
+		return jsonDeResposta; 
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+	  
+	}
+  
+}
